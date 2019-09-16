@@ -4,7 +4,7 @@ var novaLista = "";
 var nomes = [];
 var tempos = [];
 var assuntosIncluidos = [];
-var existeAssunto = false;
+
 function ordernarAssunto() {
   novaLista = "";
     assuntos = document.getElementsByName("assunto");
@@ -14,96 +14,53 @@ function ordernarAssunto() {
     var i = 0;
     var j = 0;
     var z = 0;
+    var assuntosDiferentes = [];
+    var existeAssunto = false;
+
     novaLista += "<h1>Email</h1>" +
                 "<ul id='novaOrd'>";
 
-
-
-    for (i = 0; i < assuntos.length; i += 1) {
-        if (i === 0) {
-            existeAssunto = false;
-            assuntosIncluidos.push(assuntos[i].textContent);
-        } else {
-            existeAssunto = false;
-            for (j = 0; j < assuntosIncluidos.length; j += 1) {
-                if (assuntos[i].textContent === assuntosIncluidos[j]) {
-                    existeAssunto = true;
-                }
-            }
-        }
-
-        if (!existeAssunto) {
-            assuntosIncluidos.push(assuntos[i].textContent);
-
-            for (z = assuntos.length - 1; z > i; z -= 1) {
-                if (assuntos[i].textContent === assuntos[z].textContent) {
-                    assuntosIguais.push(z);
-                }
-            }
-
-            if (assuntosIguais.length > 0) {
-                if (!existeAssunto) {
-                    novaLista += "<h2>"
-                              + assuntos[i].textContent
-                              + "</h2>";
-                    novaLista += "<li class='titulo_li'>"
-                             + "<span class='titulo'>Nome</span>"
-                             + "<span class='titulo'>Assunto</span>"
-                             + "<span class='titulo'>Data</span>"
-                             + "</li>";
-                    novaLista += "<li class='corpo'>";
-                    novaLista += "<span class='nome' name='nome'>"
-                              + nomes[i].textContent
-                              + "</span> ";
-                    novaLista += "<span class='assunto' name='assunto'>"
-                              + assuntos[i].textContent
-                              + "</span> ";
-                    novaLista += "<span class='tempo' name='tempo'>"
-                              + tempos[i].textContent
-                              + "</span> ";
-                    novaLista += "</li>";
-                    for (j = assuntosIguais.length - 1; j >= 0; j -= 1) {
-                        novaLista += "<li class='corpo'>";
-                        novaLista += "<span class='nome' name='nome'>"
-                                  + nomes[assuntosIguais[j]].textContent
-                                  + "</span> ";
-                        novaLista += "<span class='assunto' name='assunto'>"
-                                  + assuntos[assuntosIguais[j]].textContent
-                                  + "</span> ";
-                        novaLista += "<span class='tempo' name='tempo'>"
-                                  + tempos[assuntosIguais[j]].textContent
-                                  + "</span> ";
-                        novaLista += "</li>";
-                    }
-                    assuntosIguais = [];
-                }
-            } else {
-                novaLista += "<h2>"
-                          + assuntos[i].textContent
-                          + "</h2>";
-                novaLista += "<li class='titulo_li'>"
-                         + "<span class='titulo'>Nome</span>"
-                         + "<span class='titulo'>Assunto</span>"
-                         + "<span class='titulo'>Data</span>"
-                         + "</li>";
-                novaLista += "<li  class='corpo'>";
-                novaLista += "<span class='nome' name='nome'>"
-                          + nomes[i].textContent
-                          + "</span> ";
-                novaLista += "<span class='assunto' name='assunto'>"
-                          + assuntos[i].textContent
-                          + "</span> ";
-                novaLista += "<span class='tempo' name='tempo'>"
-                          + tempos[i].textContent
-                          + "</span> ";
-                novaLista += "</li>";
-            }
-        }
+  for(i = 1; i < assuntos.length; i += 1){
+    existeAssunto = false;
+    for(j = 0; j< assuntosDiferentes.length; j+= 1){
+      if(assuntos[i].textContent == assuntosDiferentes[j]){
+        existeAssunto = true;
+        break;
+      }
     }
-    novaLista += "</ul>";
-    novaLista += "<button onclick='ordernarData()'>Ordernar por Data</button>";
-    document.getElementById("conteudo").innerHTML = novaLista;
-    novaLista = "";
+    if(!existeAssunto){
+      assuntosDiferentes.push(assuntos[i].textContent);
+    }
+  }
+
+  for(i = 0; i < assuntosDiferentes.length; i += 1){
+    novaLista += "<h2>" + assuntosDiferentes[i] + "</h2>";
+    novaLista += "<li class='titulo_li'>"
+               + "<span class='titulo'>Nome</span>"
+               + "<span class='titulo'>Assunto</span>"
+               + "<span class='titulo'>Data</span>"
+               + "</li>";
+    for(j = 0; j < assuntos.length; j += 1){
+      if(assuntosDiferentes[i] === assuntos[j].textContent){
+        novaLista += "<li class='corpo'>";
+        novaLista += "<span class='nome' name='nome'>"
+                  + nomes[j].textContent
+                  + "</span> ";
+        novaLista += "<span class='assunto' name='assunto'>"
+                  + assuntos[j].textContent
+                  + "</span> ";
+        novaLista += "<span class='tempo' name='tempo'>"
+                  + tempos[j].textContent
+                  + "</span> ";
+        novaLista += "</li>";
+      }
+    }
+  }
+  novaLista += "</ul>";
+  
+  novaLista += "<button onclick='ordernarData()'>Ordernar por Data</button>";
+  document.getElementById("conteudo").innerHTML = novaLista;
+  novaLista = "";
 }
 
 function ordernarData(){
