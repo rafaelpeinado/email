@@ -18,7 +18,7 @@ function ordernarAssunto() {
   for(i = 1; i < assuntos.length; i += 1){
     existeAssunto = false;
     for(j = 0; j< assuntosDiferentes.length; j+= 1){
-      if(assuntos[i].textContent == assuntosDiferentes[j]){
+      if(assuntos[i].textContent === assuntosDiferentes[j]){
         existeAssunto = true;
         break;
       }
@@ -91,10 +91,6 @@ function ordernarData(){
           ordem[j+1] = auxOrdem;
         }
       }
-  }
-
-  for(i = 0; i < assuntos.length; i += 1){
-    console.log(ordem[i] + " " + datas[i].getMilliseconds());
   }
 
   novaLista += "<h1>Email</h1>" +
