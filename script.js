@@ -1,24 +1,19 @@
 var assuntos = [];
-var assuntosIguais = [];
 var novaLista = "";
 var nomes = [];
 var tempos = [];
-var assuntosIncluidos = [];
 
 function ordernarAssunto() {
   novaLista = "";
-    assuntos = document.getElementsByName("assunto");
-    nomes = document.getElementsByName("nome");
-    tempos = document.getElementsByName("tempo");
+  assuntos = document.getElementsByName("assunto");
+  nomes = document.getElementsByName("nome");
+  tempos = document.getElementsByName("tempo");
 
-    var i = 0;
-    var j = 0;
-    var z = 0;
-    var assuntosDiferentes = [];
-    var existeAssunto = false;
-
-    novaLista += "<h1>Email</h1>" +
-                "<ul id='novaOrd'>";
+  var i = 0;
+  var j = 0;
+  var z = 0;
+  var assuntosDiferentes = [];
+  var existeAssunto = false;
 
   for(i = 1; i < assuntos.length; i += 1){
     existeAssunto = false;
@@ -33,6 +28,8 @@ function ordernarAssunto() {
     }
   }
 
+  novaLista += "<h1>Email</h1>" +
+               "<ul id='novaOrd'>";
   for(i = 0; i < assuntosDiferentes.length; i += 1){
     novaLista += "<h2>" + assuntosDiferentes[i] + "</h2>";
     novaLista += "<li class='titulo_li'>"
@@ -42,7 +39,7 @@ function ordernarAssunto() {
                + "</li>";
     for(j = 0; j < assuntos.length; j += 1){
       if(assuntosDiferentes[i] === assuntos[j].textContent){
-        novaLista += "<li class='corpo'>";
+        novaLista += "<li>";
         novaLista += "<span class='nome' name='nome'>"
                   + nomes[j].textContent
                   + "</span> ";
@@ -65,15 +62,12 @@ function ordernarAssunto() {
 
 function ordernarData(){
   novaLista = "";
-  novaLista += "<h1>Email</h1>" +
-                "<ul id='novaOrd'>";
   assuntos = document.getElementsByName("assunto");
   nomes = document.getElementsByName("nome");
   tempos = document.getElementsByName("tempo");
-  tudo = document.getElementsByClassName("corpo");
   var datas = [];
+  var ordem = [];
   var data = "";
-  var novaData = "";
   var i = 0;
   var j = 0;
   var auxData = 0;
@@ -81,19 +75,30 @@ function ordernarData(){
 
   for(i = 0; i < tempos.length; i += 1){
     data = (tempos[i].textContent).toString();
-    datas[i] = new Date(data.substring(6,10), data.substring(3,5), data.substring(0,2), data.substring(11,13), data.substring(14,16), data.substring(17,19), i);
+    datas[i] = new Date(data.substring(6,10), data.substring(3,5), data.substring(0,2), data.substring(11,13), data.substring(14,16), data.substring(17,19));
+    ordem.push(i);
   }
 
-  for(i = 1; i < tudo.length; i += 1){
-      for(j = 0; j < tudo.length-1; j += 1){
+  for(i = 1; i < assuntos.length; i += 1){
+      for(j = 0; j < assuntos.length-1; j += 1){
         if(datas[j] < datas[j+1]){
           auxData = datas[j];
           datas[j] = datas[j+1];
           datas[j+1] = auxData;
+
+          auxOrdem = ordem[j];
+          ordem[j] = ordem[j+1];
+          ordem[j+1] = auxOrdem;
         }
       }
   }
 
+  for(i = 0; i < assuntos.length; i += 1){
+    console.log(ordem[i] + " " + datas[i].getMilliseconds());
+  }
+
+  novaLista += "<h1>Email</h1>" +
+                "<ul id='novaOrd'>";
   novaLista += "<li class='titulo_li'>"
              + "<span class='titulo'>Nome</span>"
              + "<span class='titulo'>Assunto</span>"
@@ -103,13 +108,13 @@ function ordernarData(){
   for(i = 0; i < tempos.length; i += 1){
     novaLista += "<li>";
     novaLista += "<span class='nome' name='nome'>"
-              + nomes[datas[i].getMilliseconds()].textContent
+              + nomes[ordem[i]].textContent
               + "</span> ";
     novaLista += "<span class='assunto' name='assunto'>"
-              + assuntos[datas[i].getMilliseconds()].textContent
+              + assuntos[ordem[i]].textContent
               + "</span> ";
     novaLista += "<span class='tempo' name='tempo'>"
-              + tempos[datas[i].getMilliseconds()].textContent
+              + tempos[ordem[i]].textContent
               + "</span> ";
     novaLista += "</li>";
 
