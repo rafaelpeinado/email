@@ -14,7 +14,7 @@ function ordernarAssunto() {
     var assuntosDiferentes = [];
     var existeAssunto = false;
     var auxAssuntos = "";
-
+    assuntosDiferentes.push(assuntos[0].textContent);
     for (i = 1; i < assuntos.length; i += 1) {
         existeAssunto = false;
         for (j = 0; j < assuntosDiferentes.length; j += 1) {
