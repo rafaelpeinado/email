@@ -29,14 +29,14 @@ function ordernarAssunto() {
     }
 
     for (i = 1; i < assuntosDiferentes.length; i += 1) {
-      for (j = 0; j < assuntosDiferentes.length - 1; j += 1) {
-          if (assuntosDiferentes[j] > assuntosDiferentes[j + 1]) {
-              auxAssuntos = assuntosDiferentes[j];
-              assuntosDiferentes[j] = assuntosDiferentes[j + 1];
-              assuntosDiferentes[j + 1] = auxAssuntos;
-          }
-      }
-  }
+        for (j = 0; j < assuntosDiferentes.length - 1; j += 1) {
+            if (assuntosDiferentes[j] > assuntosDiferentes[j + 1]) {
+                auxAssuntos = assuntosDiferentes[j];
+                assuntosDiferentes[j] = assuntosDiferentes[j + 1];
+                assuntosDiferentes[j + 1] = auxAssuntos;
+            }
+        }
+    }
 
     novaLista += "<h1>Email</h1>"
                + "<ul id='novaOrd'>";
